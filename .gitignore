@@ -1,0 +1,14 @@
+.idea
+node_modules
+.DS_Store
+dist
+build
+dist-ssr
+*.local
+/coverage
+/dist
+/esm
+/cjs
+/.idea
+/node_modules
+build-storybook
