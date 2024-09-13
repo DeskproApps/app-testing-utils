@@ -1,0 +1,61 @@
+name: Publish to npm on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Build package
+        run: pnpm run build
+
+      - name: Bump Version
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          git config --global user.name "git log -1 --pretty=format:%an"
+          git config --global user.email "$(git log -1 --pretty=format:%ae)"
+
+          if [[ "$LABELS" == *"major-version"* ]]; then
+            npm version major
+          elif [[ "$LABELS" == *"minor-version"* ]]; then
+            npm version minor
+          else
+            npm version patch
+          fi
+
+          # push bump package version
+          git push origin HEAD:main
+
+      - name: Authenticate NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> .npmrc
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: npm publish --access public

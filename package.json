@@ -9,7 +9,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "files": ["dist", "esm", "cjs"],
+  "files": [
+    "dist",
+    "esm",
+    "cjs"
+  ],
   "scripts": {
     "build": "pnpm build:clean && pnpm build:esm && pnpm build:cjs && pnpm build:dist",
     "build:clean": "rimraf ./dist && rimraf ./esm && rimraf ./cjs",
@@ -29,7 +33,6 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
@@ -38,6 +41,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@testing-library/jest-dom": "^6.4.6",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript/lib-dom": "npm:@types/web@^0.0.148",
