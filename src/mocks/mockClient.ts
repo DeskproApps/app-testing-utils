@@ -76,6 +76,9 @@ const mockClient: IDeskproClient = {
     send: () => Promise.resolve(),
     appendContentToActiveTicketReplyBox: () => Promise.resolve(),
     appendLinkToActiveTicketReplyBox: () => Promise.resolve(),
+    alertSuccess: () => Promise.resolve(),
+    alertError: () => Promise.resolve(),
+    alertDismiss: () => Promise.resolve(),
   }),
 };
 
