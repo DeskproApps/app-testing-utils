@@ -6,6 +6,7 @@ build
 dist-ssr
 *.local
 /coverage
+.pnpm-store
 /dist
 /esm
 /cjs
