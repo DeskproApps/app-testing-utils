@@ -7,9 +7,6 @@ dist-ssr
 *.local
 /coverage
 .pnpm-store
-/dist
-/esm
-/cjs
-/.idea
-/node_modules
-build-storybook
+
+# Sentry Config File
+.env.sentry-build-plugin
